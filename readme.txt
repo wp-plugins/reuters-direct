@@ -93,11 +93,11 @@ Ask Lana.
 
 == Screenshots ==
 
-1. screenshot-1: Configuration screen of Reuters Wordpress Direct
-2. screenshot-2: Configuration screen cont. 
-3. screenshot-3: Posts screen in Wordpress show the post tagging for Online Reports wo/ Images and Text-wires
-4. screenshot-4: Media gallery
-5. screenshot-5: Image Detail Screen showing attached metadata
+1. Configuration screen of Reuters Wordpress Direct
+2. Configuration screen cont. 
+3. Posts screen in Wordpress show the post tagging for Online Reports wo/ Images and Text-wires
+4. Media gallery
+5. Image Detail Screen showing attached metadata
 
 == Changelog ==
 
