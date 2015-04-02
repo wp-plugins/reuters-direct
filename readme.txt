@@ -108,5 +108,3 @@ Ask Lana.
 * Release version!
 
 
-== Arbitrary section 1 ==
-
