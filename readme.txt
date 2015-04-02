@@ -4,7 +4,7 @@ Donate link: http://thomsonreuters.com/en/products-services/reuters-news-agency.
 Tags: news_aggregator,Reuters,News,Reuters_Connect
 Requires at least: 3.8
 Tested up to: 4.1.1
-Stable tag: 2.4
+Stable tag: 2.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,16 +23,16 @@ Configure ingestion of content via channel as well multiple image resolution and
 == Installation ==
 
 
-1. Activate the plugin through the 'Plugins' menu in WordPress
+1. Activate the plugin through the 'Plugins' menu in WordPress.
 1. Select Reuters Direct from the Settings menu.
-1. Log in using your Reuters Connect: Web Services API username and password
+1. Log in using your Reuters Connect: Web Services API username and password.
 1. Configure required channels, category codes, and media settings. 
 
 == Frequently asked questions ==
 
 = Is this an official Reuters released delivery method? =
 
-Yes, is an official Reuters delivery method for Media delivery. See Donate Link or https://rmb.reuters.com/agency-api-demo/login.jsp for details
+Yes, is an official Reuters delivery method for Media delivery. See Donate Link or https://rmb.reuters.com/agency-api-demo/login.jsp for details.
 
 
 = I don't have a Reuters Connect: Web Services username and password =
