@@ -456,10 +456,8 @@ The key distinctions between N2000 and IPTC are that N2000 includes region and c
 			$html .= '<div id="rd_header"><h1><span>REUTERS WORDPRESS DIRECT</span></h1>';
 			$html .= '<select id="help_links">
 			 <option value="" disabled selected>Help</option>
-			 <option value="http://reutersnewsagency.com/customer/service/">Contact Us</option>
-			 <option value=" https://itunes.apple.com/us/app/reuters-liaison/id704538428?mt=8">Liaison(iOS)</option>
-			 <option value="https://play.google.com/store/apps/details?id=com.thomsonreuters.liaison">Liaison(Android)</option>
-			 <option value="https://go.mediaexpress.reuters.com/agencyaccess/go/">Media Express</option>
+			 <option value="http://liaison.reuters.com/contact-us">Contact Us</option>
+			 <option value="http://mediaexpress.reuters.com">Media Express</option>
 			</select></div>';
 			
 			$token = $this->getToken();
@@ -509,13 +507,13 @@ The key distinctions between N2000 and IPTC are that N2000 includes region and c
 	{
 		$username = get_option('rd_username_field');
 		$password = get_option('rd_password_field');
-	  	$token_url = "https://cache.commerce.reuters.com/rmd/rest/xml/login?username=".$username."&password=".$password;
+	  	$token_url = "https://commerce.reuters.com/rmd/rest/xml/login?username=".$username."&password=".$password;
 	  	$token = array();
 	  	$ch = curl_init();
 	  	curl_setopt($ch, CURLOPT_URL, $token_url);
 	  	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	  	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	  	curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+	  	curl_setopt($ch, CURLOPT_SSLVERSION, 6);
 	  	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 	  	$token['token'] = simplexml_load_string(curl_exec($ch));
 		$token['token_error'] = $token['token']->error;
