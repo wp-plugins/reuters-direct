@@ -35,7 +35,7 @@ class Reuters_Direct {
 	 * @since   1.0.0
 	 * @return  void
 	 */
-	public function __construct ( $file = '', $version = '2.4.1' ) {
+	public function __construct ( $file = '', $version = '2.4.2' ) {
 		$this->_version = $version;
 		$this->_token = 'Reuters_Direct';
 
@@ -67,7 +67,7 @@ class Reuters_Direct {
 	 * @see Reuters_Direct()
 	 * @return Main Reuters_Direct instance
 	 */
-	public static function instance ( $file = '', $version = '2.4.1' ) {
+	public static function instance ( $file = '', $version = '2.4.2' ) {
 		if ( is_null( self::$_instance ) ) {
 			self::$_instance = new self( $file, $version );
 		}
@@ -160,12 +160,12 @@ class Reuters_Direct {
 	{
 		$username = get_option('rd_username_field');
 		$password = get_option('rd_password_field');
-	  	$token_url = "https://cache.commerce.reuters.com/rmd/rest/xml/login?username=".$username."&password=".$password;
+	  	$token_url = "https://commerce.reuters.com/rmd/rest/xml/login?username=".$username."&password=".$password;
 	  	$ch = curl_init();
 	  	curl_setopt($ch, CURLOPT_URL, $token_url);
 	  	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	  	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	  	curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+	  	curl_setopt($ch, CURLOPT_SSLVERSION, 6);
 	  	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 	  	$token = simplexml_load_string(curl_exec($ch));
 	  	curl_close($ch);
@@ -225,7 +225,25 @@ class Reuters_Direct {
 		     return $wpdb->get_var( $wpdb->prepare($query, $args) );
 	 
 		return 0;
-	}    
+	} 
+
+	// FUNCTION TO CHECK IF ATTACHMENT ALREADY EXISTS
+	public function get_attach_id($attachment_url) 
+	{
+	 	global $wpdb;
+		$query = "SELECT post_id FROM $wpdb->postmeta WHERE meta_key='_wp_attached_file'";
+		$args = array();
+	 
+		if ( !empty ( $attachment_url ) ) {
+		     $query .= " AND meta_value LIKE '%s' ";
+		     $args[] = $attachment_url;
+		}
+	 
+		if ( !empty ( $args ) )
+		     return $wpdb->get_var( $wpdb->prepare($query, $args) );
+	 
+		return 0;
+	}
 
 	// FUNCTION TO HANDLE DIFFERNT CHANNEL TYPES
 	public function getPosts($user_token) 
@@ -314,8 +332,7 @@ class Reuters_Direct {
 					}		
 					update_post_meta($post_id, 'unix_timestamp', $post_date_unix);
 					$oldpost++;
-				}
-				
+				}	
 
 			}
 			// Handling new story
@@ -437,33 +454,43 @@ class Reuters_Direct {
 		$image_tag = '';
 		foreach($image_content as $image_ref => $image_detail)
 		{
-			$image_url = $image_detail['url'];
-			$headline = $image_detail['headline'];
-			$description = $image_detail['description'];
-			$image_curl = curl_init();
-		  	curl_setopt($image_curl, CURLOPT_URL, $image_url);
-		  	curl_setopt($image_curl, CURLOPT_RETURNTRANSFER, true);
-			$image_data = curl_exec($image_curl);
-		  	curl_close($image_curl);
-		  	// Saving the images
 			$basename = basename($image_ref);
 			$filename = sanitize_file_name($basename);
-			$file = $upload_dir['basedir']."/Reuters_Direct_Media/" . $channel_name ."/". $filename . '.jpg';
-			file_put_contents($file, $image_data);
-			// Makeing a post entry
-			$attachment = array(    
-			    'post_mime_type' => 'image/jpg',
-			    'post_author' => 1,
-			    'post_title' => implode(' ', array_slice(explode(' ', $headline), 0, 10)),
-			    'post_content' => $description,
-			    'post_excerpt' => $headline,
-			    'guid' => $upload_dir['basedir']."/Reuters_Direct_Media/" . $channel_name ."/". $filename . '.jpg',
-			    'post_status' => 'inherit'
-			);
-			// Attaching Images to Post
-			$attach_id = wp_insert_attachment( $attachment, $file, $post_id );
-			$attach_data = wp_generate_attachment_metadata( $attach_id, $file );
-			wp_update_attachment_metadata( $attach_id, $attach_data );
+			$file_id = "Reuters_Direct_Media/" . $channel_name ."/". $filename . '.jpg';
+			$file = $upload_dir['basedir'].'/'.$file_id;
+			$attach_id = '';
+			// Handling New Image
+			if (!file_exists($file)) 
+			{
+				$image_url = $image_detail['url'];
+				$headline = $image_detail['headline'];
+				$description = $image_detail['description'];
+				$image_curl = curl_init();
+			  	curl_setopt($image_curl, CURLOPT_URL, $image_url);
+			  	curl_setopt($image_curl, CURLOPT_RETURNTRANSFER, true);
+				$image_data = curl_exec($image_curl);
+			  	curl_close($image_curl);
+				file_put_contents($file, $image_data);
+				// Making a post entry
+				$attachment = array(    
+				    'post_mime_type' => 'image/jpg',
+				    'post_author' => 1,
+				    'post_title' => implode(' ', array_slice(explode(' ', $headline), 0, 10)),
+				    'post_content' => $description,
+				    'post_excerpt' => $headline,
+				    'guid' => $upload_dir['basedir']."/Reuters_Direct_Media/" . $channel_name ."/". $filename . '.jpg',
+				    'post_status' => 'inherit'
+				);
+				// Attaching Images to Post
+				$attach_id = wp_insert_attachment( $attachment, $file, $post_id );
+				$attach_data = wp_generate_attachment_metadata( $attach_id, $file );
+				wp_update_attachment_metadata( $attach_id, $attach_data );
+			}
+			// Handling Old Image
+			else
+			{
+				$attach_id = $this->get_attach_id($file_id);
+			}
 			// Handling Multiple Images
 			$url = wp_get_attachment_url( $attach_id );
 			$attach_link = get_attachment_link( $attach_id );
@@ -475,7 +502,6 @@ class Reuters_Direct {
 		}
 		return $image_tag;
 	}
-
 
     // FUNCTION TO GET PIC
 	public function getImages($content_xml, $channel_alias, $channel_name, $user_token, $channel_type)
