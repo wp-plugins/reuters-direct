@@ -32,12 +32,12 @@ Configure ingestion of content via channel as well multiple image resolution and
 
 = Is this an official Reuters released delivery method? =
 
-Yes, is an official Reuters delivery method for Media delivery. See Donate Link or https://rmb.reuters.com/agency-api-demo/login.jsp for details
+Yes, its an official Reuters media delivery method. See Donate Link or https://rmb.reuters.com/agency-api-demo/login.jsp for details.
 
 
 = I don't have a Reuters Connect: Web Services username and password =
 
-Select the Customer Service link, or under Help within the plugin and you will be provided a form which will submit a
+Select Contact Us under the Help section of the plugin and fill out the form to submit a
 ticket to Reuters customer service. From there, an appropriate account representative will reach out to assist.
 
 = Should I remain logged into the plugin? =
@@ -111,7 +111,4 @@ Ask Lana.
 
 = 2.4.2 =
 * Performance upgrade & minor bug fixes done. 
-
-
-== Arbitrary section 1 ==
 
