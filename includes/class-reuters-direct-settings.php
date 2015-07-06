@@ -456,7 +456,7 @@ The key distinctions between N2000 and IPTC are that N2000 includes region and c
 			$html .= '<div id="rd_header"><h1><span>REUTERS WORDPRESS DIRECT</span></h1>';
 			$html .= '<select id="help_links">
 			 <option value="" disabled selected>Help</option>
-			 <option value="http://liaison.reuters.com/contact-us">Contact Us</option>
+			 <option value="http://www.reutersnewsagency.com/customer/service/">Contact Us</option>
 			 <option value="http://mediaexpress.reuters.com">Media Express</option>
 			</select></div>';
 			
