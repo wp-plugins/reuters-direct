@@ -4,7 +4,7 @@ Donate link: http://thomsonreuters.com/en/products-services/reuters-news-agency.
 Tags: news_aggregator,Reuters,News,Reuters_Connect
 Requires at least: 3.8
 Tested up to: 4.2.2
-Stable tag: 2.4.2
+Stable tag: 2.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -101,6 +101,9 @@ Ask Lana.
 
 == Changelog ==
 
+= 2.4.3 =
+* Fixed image directory naming.
+
 = 2.4.2 =
 * Fixed duplicate image bug.
 
@@ -109,6 +112,6 @@ Ask Lana.
 
 == Upgrade notice ==
 
-= 2.4.2 =
-* Performance upgrade & minor bug fixes done. 
+= 2.4.3 =
+* Minor bug fixes done. 
 
