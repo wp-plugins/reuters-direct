@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: Reuters WordPress Direct
- * Version: 2.4.2
+ * Version: 2.4.3
  * Description: A full-featured news aggregator, powered by Reuters Connect: Web Services, which ingests Reuters news and picture content directly into a WordPress platform.
  * Author: Reuters News Agency 
  * Requires at least: 3.8
@@ -16,7 +16,7 @@ require_once( 'includes/class-reuters-direct.php' );
 require_once( 'includes/class-reuters-direct-settings.php' );
 
 function Reuters_Direct () {
-	$instance = Reuters_Direct::instance( __FILE__, '2.4.2' );
+	$instance = Reuters_Direct::instance( __FILE__, '2.4.3' );
 	if( is_null( $instance->settings ) ) {
 		$instance->settings = Reuters_Direct_Settings::instance( $instance );
 	}

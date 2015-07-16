@@ -35,7 +35,7 @@ class Reuters_Direct {
 	 * @since   1.0.0
 	 * @return  void
 	 */
-	public function __construct ( $file = '', $version = '2.4.2' ) {
+	public function __construct ( $file = '', $version = '2.4.3' ) {
 		$this->_version = $version;
 		$this->_token = 'Reuters_Direct';
 
@@ -67,7 +67,7 @@ class Reuters_Direct {
 	 * @see Reuters_Direct()
 	 * @return Main Reuters_Direct instance
 	 */
-	public static function instance ( $file = '', $version = '2.4.2' ) {
+	public static function instance ( $file = '', $version = '2.4.3' ) {
 		if ( is_null( self::$_instance ) ) {
 			self::$_instance = new self( $file, $version );
 		}
@@ -265,7 +265,7 @@ class Reuters_Direct {
 			$channel_data = explode(':', $alias);
 			$channel_alias = $channel_data[0];
 			$channel_type = $channel_data[1];
-			$channel_name = $channel_data[2];
+			$channel_name = str_replace(' ', '', $channel_data[2]);
 
 			if($channel_type == 'OLR')
 			{
